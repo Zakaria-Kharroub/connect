@@ -20,10 +20,18 @@ use \App\Http\Controllers\ProfileController;
 Route::get('/profile', [ProfileController::class, 'index']);
 
 
+
+
 Route::get('/', [FrontController::class, 'index']);
 Route::get('/search', [FrontController::class, 'find']);
 
-Route::get('/messages', [FrontController::class, 'messages']);
-
+Route::get('/messages', function () {
+    return view('messages');
+});
 
 Route::get('/profile/{id}', [ProfileController::class, 'profileDetails']);
+
+
+Route::get('/register', function () {
+    return view('register');
+});
