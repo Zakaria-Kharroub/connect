@@ -11,11 +11,9 @@
     <title>Document</title>
 </head>
 <body>
-
+    @include('layouts.header');
     @yield('content')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" ></script>
 </body>
 </html>

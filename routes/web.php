@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 /*
@@ -13,9 +14,16 @@ use \App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('hero');
-});
+
 
 
 Route::get('/profile', [ProfileController::class, 'index']);
+
+
+Route::get('/', [FrontController::class, 'index']);
+Route::get('/search', [FrontController::class, 'find']);
+
+Route::get('/messages', [FrontController::class, 'messages']);
+
+
+Route::get('/profile/{id}', [ProfileController::class, 'profileDetails']);
