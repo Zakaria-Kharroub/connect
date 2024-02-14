@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
-    @include('layouts.header')
+
     <section class="bg-black dark:bg-gray-900" style="height: 100vh; padding-top: 6rem;">
 
         <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">

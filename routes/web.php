@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 /*
@@ -13,11 +14,28 @@ use \App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('hero');
-});
 
+// route autehtification
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
-Route::get('/register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
+Route::get('/signup', [\App\Http\Controllers\AuthController::class, 'signUp'])->name('signup');
+
 
 Route::get('/profile', [ProfileController::class, 'index']);
+
+
+
+
+Route::get('/', [FrontController::class, 'index']);
+Route::get('/search', [FrontController::class, 'find']);
+
+Route::get('/messages', function () {
+    return view('messages');
+});
+
+Route::get('/profile/{id}', [ProfileController::class, 'profileDetails']);
+
+
+Route::get('/register', function () {
+    return view('register');
+});
+
