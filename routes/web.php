@@ -3,6 +3,7 @@
 use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,13 +20,17 @@ use \App\Http\Controllers\ProfileController;
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::get('/signup', [\App\Http\Controllers\AuthController::class, 'signUp'])->name('signup');
 
+Route::post('/store', [\App\Http\Controllers\AuthController::class, 'store'])->name('store');
+Route::post('/loginUser', [\App\Http\Controllers\AuthController::class, 'loginUser'])->name('loginUser');
+Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logOut'])->name('logout');
+
 
 Route::get('/profile', [ProfileController::class, 'index']);
 
 
 
 
-Route::get('/', [FrontController::class, 'index']);
+Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/search', [FrontController::class, 'find']);
 
 Route::get('/messages', function () {

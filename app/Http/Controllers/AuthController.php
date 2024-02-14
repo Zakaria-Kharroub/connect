@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+
+
 
 class AuthController extends Controller
 {
@@ -22,6 +27,28 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
+
+    
+    public function loginUser(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+    
+        if (Auth::attempt($credentials)) {
+            $request->session()->put('id', Auth::user()->id);
+            $request->session()->put('name', Auth::user()->name);
+
+           return redirect()->route('index');
+        } else {
+            return redirect()->route('login');
+        }
+
+ 
+
+    }
+
+
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -36,8 +63,25 @@ class AuthController extends Controller
     public function store(Request $request)
     {
         //
+
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->address = $request->input('address');
+
+        $user->password = $request->input('password');
+        $user->save();
+
+        return redirect()->route('login');
     }
 
+
+    public function logOut(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        return redirect()->route('index');
+    }
     /**
      * Display the specified resource.
      */
