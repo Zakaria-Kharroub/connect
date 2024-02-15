@@ -113,21 +113,89 @@
                                         <span>42 Likes</span>
                                     </button>
                                 </div>
-                                <button class="flex justify-center items-center gap-2 px-2 hover:bg-gray-50 rounded-full p-1">
-                                    <svg width="22px" height="22px" viewBox="0 0 24 24" class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
-                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                        <g id="SVGRepo_iconCarrier">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22ZM8 13.25C7.58579 13.25 7.25 13.5858 7.25 14C7.25 14.4142 7.58579 14.75 8 14.75H13.5C13.9142 14.75 14.25 14.4142 14.25 14C14.25 13.5858 13.9142 13.25 13.5 13.25H8ZM7.25 10.5C7.25 10.0858 7.58579 9.75 8 9.75H16C16.4142 9.75 16.75 10.0858 16.75 10.5C16.75 10.9142 16.4142 11.25 16 11.25H8C7.58579 11.25 7.25 10.9142 7.25 10.5Z"></path>
-                                        </g>
-                                    </svg>
-                                    <span>3 Comment</span>
+                                <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal{{$post->id}}">
+                                     Comment <i class="fa-solid fa-comment text-lg "></i> 
                                 </button>
+
                             </div>
                             <hr class="mt-2 mb-2">
                             <hr class="mt-2 mb-2">
 
                         </div>
+
+
+
+                        <!-- Modal comments -->
+<div class="modal fade text-dark" id="exampleModal{{$post->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title text-dark" id="exampleModalLabel"><b>{{ $post->content }}</b></h2><br>
+          
+          <button type="button" class="btn-close btn-primary" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          @foreach($post->comments as $comment)
+            <div class="flex items-center space-x-2">
+                <img src="https://placekitten.com/40/40" alt="User Avatar" class="w-10 h-10 rounded-full">
+                <div class="w-75">
+                    <span class="flex items-center space-x-1">
+                        <p class="text-gray-1000 font-semibold">{{$comment->user->name }}</p>
+                        <p class="text-gray-500 text-sm">{{ $comment->created_at->diffForHumans() }}</p>
+                    </span>
+                    
+                    <p class="text-gray-800">{{ $comment->body }}</p>
+                </div>
+
+                
+                
+             @if(Auth::check())
+                @if($comment->user_id == Auth::user()->id) 
+                <div class="">
+                    <form action="{{route('comment.destroy', $comment->id)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-light text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{$post->id}}">
+                            <i class="fa-solid fa-trash text-lg "></i>
+                        </button>
+
+                    </form>
+                </div>
+
+                @endif
+            @endif
+                
+                
+
+            </div>
+            <hr class="mt-2 mb-2">
+            
+        @endforeach
+
+            
+
+        </div>
+        <div class="modal-footer ">
+
+            <form action="{{route('comment.store')}}" method="post" class="flex justify-between w-full">
+                @csrf
+                <input type="text" name="body" id="comment" class="w-full border-2 border-primary bg-red transition h-12 px-2 pr-20 rounded-md focus:outline-none w-full text-black text-lg " placeholder="Comment" />
+                <input type="hidden" name="post_id" value="{{ $post->id }}">
+
+                @if (Auth::check())
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                @endif
+
+                <button type="submit" class=" rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                comment
+               </button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 

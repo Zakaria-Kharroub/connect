@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateFrontRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 
 class FrontController extends Controller
 {
@@ -18,7 +19,9 @@ class FrontController extends Controller
     {
         $users = User::take(5)->get();
         $posts = Post::all();
-        return view('hero', compact('users','posts'));
+        $comments = Comment::all();
+        
+        return view('hero', compact('users','posts','comments'));
         
 
     }

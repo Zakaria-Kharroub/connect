@@ -4,6 +4,7 @@ use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 use \App\Http\Controllers\MessagesController;
+use \App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,3 +55,5 @@ Route::get('/dashboard', [\App\Http\Controllers\PostController::class, 'myPosts'
 Route::post('/addPost', [App\Http\Controllers\PostController::class, 'addPost'])->name('addPost');
 Route::delete('/deletePost/{id}', [App\Http\Controllers\PostController::class, 'deletePost'])->name('deletePost');
 
+// comments
+Route::resource('comment', \App\Http\Controllers\CommentController::class);
