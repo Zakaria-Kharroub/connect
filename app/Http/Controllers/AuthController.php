@@ -28,11 +28,11 @@ class AuthController extends Controller
     }
 
 
-    
+
     public function loginUser(Request $request)
     {
         $credentials = $request->only('email', 'password');
-    
+
         if (Auth::attempt($credentials)) {
             $request->session()->put('id', Auth::user()->id);
             $request->session()->put('name', Auth::user()->name);
@@ -42,7 +42,7 @@ class AuthController extends Controller
             return redirect()->route('login');
         }
 
- 
+
 
     }
 
@@ -62,7 +62,7 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
        $request->validate([
             'name' => 'required',
             'email' => 'required|string|email|max:255|unique:users',

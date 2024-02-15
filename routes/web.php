@@ -3,7 +3,7 @@
 use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
-
+use \App\Http\Controllers\MessagesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,9 +33,8 @@ Route::get('/profile', [ProfileController::class, 'index']);
 Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/search', [FrontController::class, 'find']);
 
-Route::get('/messages', function () {
-    return view('messages');
-});
+Route::get('/messages/{id}',[MessagesController::class, 'GetMessage'])->name('messages');
+Route::post('/message/{id}', [MessagesController::class, 'sendMessage'])->name('send.message');
 
 Route::get('/profile/{id}', [ProfileController::class, 'profileDetails']);
 
