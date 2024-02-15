@@ -43,3 +43,14 @@ Route::get('/register', function () {
     return view('register');
 });
 
+
+
+
+
+
+
+// posts routes
+Route::get('/dashboard', [\App\Http\Controllers\PostController::class, 'myPosts'])->name('dashboard');
+Route::post('/addPost', [App\Http\Controllers\PostController::class, 'addPost'])->name('addPost');
+Route::delete('/deletePost/{id}', [App\Http\Controllers\PostController::class, 'deletePost'])->name('deletePost');
+

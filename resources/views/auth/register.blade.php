@@ -4,6 +4,17 @@
     
 
     <div class="container w-50">
+       
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <h1 class='text-center mt-5'>
             register
