@@ -350,7 +350,7 @@
                     <div class="flex gap-x-2 items-center">
                         <img class="avatar h-10 w-10 rounded-full border-4 border-opacity-40" src="data:image/jpeg;base64,${user.avatar}" alt="">
                         <div class="card-name-user text-xs">
-                            <a href="/profile/${user.id}" class="user-profile-link">${user.name}</a>
+                            <a href="/profile/${user.id}" class="user-profile-link text-dark">${user.name}</a>
                             <div class="flex items-center gap-x-1">
                                 <span class="h-3 w-3 rounded-full bg-green-500"></span>
                                 <span class="text-green-600">Online</span>
