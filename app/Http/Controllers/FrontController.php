@@ -7,6 +7,7 @@ use App\Http\Requests\StoreFrontRequest;
 use App\Http\Requests\UpdateFrontRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class FrontController extends Controller
 {
@@ -16,8 +17,13 @@ class FrontController extends Controller
     public function index()
     {
         $users = User::take(5)->get();
-        return view('hero', compact('users'));
+        $posts = Post::all();
+        return view('hero', compact('users','posts'));
+        
+
     }
+
+
 
     public function find(Request $request)
     {
