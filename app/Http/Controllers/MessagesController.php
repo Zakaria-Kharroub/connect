@@ -16,27 +16,21 @@ class MessagesController extends Controller
      */
 
 
-      public function GetMessage($recipientId)
-      {
-          $userId = Auth::id();
+    public function GetMessage($recipientId)
+    {
 
-          $messages = Messages::where(function ($query) use ($userId, $recipientId) {
-                  $query->where('sender_id', $userId)
-                        ->where('recipient_id', $recipientId);
-              })
-              ->orWhere(function ($query) use ($userId, $recipientId) {
-                  $query->where('sender_id', $recipientId)
-                        ->where('recipient_id', $userId);
-              })
-              ->get();
-
-          $user = User::find($recipientId);
-          return view('messages', compact('messages', 'user'));
-      }
+        $messages = Messages::where('sender_id', Auth::id())
+            ->where('recipient_id', $recipientId)
+            ->orWhere('sender_id', $recipientId)
+            ->where('recipient_id', Auth::id())
+            ->orderBy('created_at', 'asc')
+            ->get();
+        $user = User::find($recipientId);
+        return view('messages', compact('messages', 'user'));
+    }
 
     public function sendMessage(Request $request, $recipientId)
     {
-
         // Create a new message
         $message = new Messages();
         $message->content = $request->input('content');

@@ -79,18 +79,18 @@
                                             <i class="fa-solid fa-ellipsis-vertical text-lg "></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    
-                                            
-    
-    
-                                           
+
+
+
+
+
                                             <button type="submit" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal{{$post->id}}">
                                                 signaler <i class="fa-solid fa-flag text-lg "></i>
                                             </button>
-    
-    
-    
-                                         
+
+
+
+
                                         </div>
                                       </div>
                                 </div>
@@ -132,7 +132,7 @@
 
 
                     @endforeach
-                    
+
                     </div>
 
                 <div style="margin-top: 5rem; display: flex; align-items: center;justify-content: space-between">
@@ -252,7 +252,7 @@
                         const cardContent = `
                 <div class="card-content-profil flex justify-between items-center">
                     <div class="flex gap-x-2 items-center">
-                        <img class="avatar h-10 w-10 rounded-full border-4 border-opacity-40" src="data:image/jpeg;base64,${user.avatar}" alt="">
+                        <img  class="avatar h-10 w-10 rounded-full border-4 border-opacity-40" src="https://placekitten.com/40/40" alt="">
                         <div class="card-name-user text-xs">
                             <a href="/profile/${user.id}" class="user-profile-link text-dark">${user.name}</a>
                             <div class="flex items-center gap-x-1">
@@ -262,13 +262,21 @@
                         </div>
                     </div>
 
-                    <div class="card-action">
-                        <button class="flex items-center px-2 py-1 text-xs text-white bg-gray-500 hover:bg-gray-600">
+                    <div class="card-action flex" style="align-items: center; gap: 0.3rem">
+                        <a href="/messages/${user.id}" class="flex items-center px-2 py-1 text-xs text-white bg-gray-500 hover:bg-gray-600">
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                             </svg>
-                            <span class="">Invite</span>
-                        </button>
+                            <span class="">Messages</span>
+                        </a>
+                        <form>
+                            <button class="flex items-center px-2 text-xs text-white bg-primary">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                </svg>
+                                 <span class="py-1 text-xs text-white bg-primary">Follow</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             `;
