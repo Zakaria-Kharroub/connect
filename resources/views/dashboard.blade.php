@@ -4,10 +4,10 @@
         <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 lg:gap-8">
             <div class="post p-5 lg:p-1 rounded-md">
                 <div class="lg:fixed lg:top-14 lg:left-14 lg:w-3/12 md:fixed md:w-5/12" style="margin-top: 9rem;">
-                   
 
 
-                    <div class="bg-light p-8 rounded-lg shadow-md max-w-md w-full" > 
+
+                    <div class="bg-light p-8 rounded-lg shadow-md max-w-md w-full" >
                         <h2 class="text-center mb-4">nouveau post</h2>
 
 
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="text-gray-500 cursor-pointer">
-                             
+
 
                                 <div class="dropdown">
                                     <button class="btn btn-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -77,7 +77,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                                        
+
 
 
                                        {{-- button modal edit --}}
@@ -92,7 +92,7 @@
                                         @method('DELETE')
                                         <button class="dropdown-item text-danger" >delete <i class="fa-solid fa-trash"></i></button>
                                       </form>
-                                     
+
                                     </div>
                                   </div>
                             </div>
@@ -114,8 +114,7 @@
                                 </button>
                             </div>
                             <button class="flex justify-center items-center gap-2 px-2 hover:bg-gray-50 rounded-full p-1">
-                                <i class="fa-regular fa-comment"></i>
-                                <span>3 Comment</span>
+                                <span> {{ $post->comments->count() }} Comments </span> <i class="fa-solid fa-comment text-lg "></i>
                             </button>
                         </div>
                     </div>
@@ -164,16 +163,16 @@
                 -center justify-between">
                     <button type="submit" class="flex justify-center items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue text-white py-2 px-4 rounded-md transition duration-300 gap-2"> Post </button>
                 </div>
-                
+
 
                 </form>
 
 
-        
 
-                    
-                
-          
+
+
+
+
 
         </div>
         <div class="modal-footer">
@@ -184,7 +183,7 @@
     </div>
   </div>
                     @endforeach
-                    
+
 
                 </div>
             </div>

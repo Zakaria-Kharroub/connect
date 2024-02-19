@@ -20,9 +20,10 @@ class FrontController extends Controller
         $users = User::take(5)->get();
         $posts = Post::all();
         $comments = Comment::all();
-        
+
         return view('hero', compact('users','posts','comments'));
         
+
 
     }
 
@@ -36,6 +37,8 @@ class FrontController extends Controller
         // Return the search results
         return response()->json($users);
     }
+
+
 
 
     public function message()

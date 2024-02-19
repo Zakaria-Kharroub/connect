@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 
+
 class ProfileController extends Controller
 {
     /**
@@ -14,8 +15,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        
+
         return view('profile.edit');
+
     }
 
     /**

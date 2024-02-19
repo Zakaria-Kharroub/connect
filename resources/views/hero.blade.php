@@ -79,18 +79,18 @@
                                             <i class="fa-solid fa-ellipsis-vertical text-lg "></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    
-                                            
-    
-    
-                                           
+
+
+
+
+
                                             <button type="submit" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal{{$post->id}}">
                                                 signaler <i class="fa-solid fa-flag text-lg "></i>
                                             </button>
-    
-    
-    
-                                         
+
+
+
+
                                         </div>
                                       </div>
                                 </div>
@@ -114,7 +114,7 @@
                                     </button>
                                 </div>
                                 <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal{{$post->id}}">
-                                     Comment <i class="fa-solid fa-comment text-lg "></i> 
+                                    <span> {{ $post->comments->count() }} Comments </span> <i class="fa-solid fa-comment text-lg "></i>
                                 </button>
 
                             </div>
@@ -127,15 +127,15 @@
 
                         <!-- Modal comments -->
 <div class="modal fade text-dark" id="exampleModal{{$post->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    
+
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h2 class="modal-title text-dark" id="exampleModalLabel"><b>{{ $post->content }}</b></h2><br>
-          
+
           <button type="button" class="btn-close btn-primary" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        
+
         <div class="modal-body">
           @foreach($post->comments as $comment)
             <div class="flex items-center space-x-2">
@@ -145,14 +145,14 @@
                         <p class="text-gray-1000 font-semibold">{{$comment->user->name }}</p>
                         <p class="text-gray-500 text-sm">{{ $comment->created_at->diffForHumans() }}</p>
                     </span>
-                    
+
                     <p class="text-gray-800">{{ $comment->body }}</p>
                 </div>
 
-                
-                
+
+
              @if(Auth::check())
-                @if($comment->user_id == Auth::user()->id) 
+                @if($comment->user_id == Auth::user()->id)
                 <div class="">
                     <form action="{{route('comment.destroy', $comment->id)}}" method="post">
                         @csrf
@@ -166,15 +166,15 @@
 
                 @endif
             @endif
-                
-                
+
+
 
             </div>
             <hr class="mt-2 mb-2">
-            
+
         @endforeach
 
-            
+
 
         </div>
         <div class="modal-footer ">
@@ -200,7 +200,7 @@
 
 
                     @endforeach
-                    
+
                     </div>
 
                 <div style="margin-top: 5rem; display: flex; align-items: center;justify-content: space-between">

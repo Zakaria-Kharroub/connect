@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 
 
 class PostController extends Controller
@@ -44,7 +45,7 @@ class PostController extends Controller
         }
 
         $post->save();
-    
+
         return redirect('/dashboard');
     }
 
@@ -53,9 +54,11 @@ class PostController extends Controller
 
     public function myPosts(Request $request)
     {
-        $user_id = auth()->id(); 
-        $posts = Post::where('user_id', $user_id)->get(); 
-        return view('dashboard', ['posts' => $posts]);
+        $user_id = auth()->id();
+        $posts = Post::where('user_id', $user_id)->get();
+        $comment= Comment::all();
+        return view('dashboard', compact('posts', 'comment'));
+
     }
 
     public function deletePost(Request $request, $id)
@@ -63,7 +66,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->delete();
         return redirect()->route('dashboard');
-        
+
     }
 
     /**
