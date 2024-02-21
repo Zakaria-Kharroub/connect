@@ -32,6 +32,8 @@ Route::get('/profile/{id}', [ProfileController::class, 'FollowUserDetailsPage'])
 Route::post('/profile/{id}', [ProfileController::class, 'followOrUnfollowUser'])->name('followOrUnfollow');
 
 
+Route::get('/delete/{id}', [ProfileController::class, 'destroy'])->name('delete_profile');
+
 Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/search', [FrontController::class, 'find']);
 

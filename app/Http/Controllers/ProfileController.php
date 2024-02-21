@@ -46,7 +46,7 @@ class ProfileController extends Controller
         ])->first();
 
         if ($existingFollower) {
-            $existingFollower->delete();
+            Follower::where('user_id', $userId)->where('follows_user_id', Auth::user()->id)->delete();
             return response()->json('unfollowed');
         } else {
             Follower::create([
@@ -100,9 +100,10 @@ class ProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Profile $profile)
+    public function destroy($profileId)
     {
-        //
+        User::where('id' , $profileId)->delete();
+        return redirect()->route('index');
     }
 
 
