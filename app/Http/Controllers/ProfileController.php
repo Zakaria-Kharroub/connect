@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follower;
 use App\Models\Profile;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -14,8 +16,42 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        
         return view('profile.edit');
+    }
+
+    public function FollowUserDetailsPage($userId)
+    {
+        $user = User::find($userId);
+        $existingFollower = Follower::where('user_id', $userId)->first();
+
+        $result = ($existingFollower) ? 'following' : 'NotFollowing';
+
+        return view('profile.edit', compact('result' , 'user'));
+    }
+
+    public function unfollowUser($id)
+    {
+        Follower::where('follows_user_id', $id)->delete();
+        return redirect()->back();
+    }
+
+    public function followOrUnfollowUser($userId)
+    {
+        $existingFollower = Follower::where([
+            ['user_id', $userId],
+            ['follows_user_id', Auth::user()->id],
+        ])->first();
+
+        if ($existingFollower) {
+            $existingFollower->delete();
+            return response()->json('unfollowed');
+        } else {
+            Follower::create([
+                'user_id' => $userId,
+                'follows_user_id' => Auth::user()->id,
+            ]);
+            return response()->json('followed');
+        }
     }
 
     /**
@@ -66,16 +102,5 @@ class ProfileController extends Controller
         //
     }
 
-
-    public function profileDetails($id)
-    {
-        $user = User::find($id);
-        if($user)
-        {
-            return view('profile.edit', compact('user'));
-        }
-        else
-            return false;
-    }
 
 }

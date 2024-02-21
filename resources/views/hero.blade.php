@@ -114,7 +114,7 @@
                                     </button>
                                 </div>
                                 <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal{{$post->id}}">
-                                     Comment <i class="fa-solid fa-comment text-lg "></i> 
+                                     Comment <i class="fa-solid fa-comment text-lg "></i>
                                 </button>
 
                             </div>
@@ -127,15 +127,15 @@
 
                         <!-- Modal comments -->
 <div class="modal fade text-dark" id="exampleModal{{$post->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    
+
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h2 class="modal-title text-dark" id="exampleModalLabel"><b>{{ $post->content }}</b></h2><br>
-          
+
           <button type="button" class="btn-close btn-primary" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        
+
         <div class="modal-body">
           @foreach($post->comments as $comment)
             <div class="flex items-center space-x-2">
@@ -145,14 +145,14 @@
                         <p class="text-gray-1000 font-semibold">{{$comment->user->name }}</p>
                         <p class="text-gray-500 text-sm">{{ $comment->created_at->diffForHumans() }}</p>
                     </span>
-                    
+
                     <p class="text-gray-800">{{ $comment->body }}</p>
                 </div>
 
-                
-                
+
+
              @if(Auth::check())
-                @if($comment->user_id == Auth::user()->id) 
+                @if($comment->user_id == Auth::user()->id)
                 <div class="">
                     <form action="{{route('comment.destroy', $comment->id)}}" method="post">
                         @csrf
@@ -166,15 +166,15 @@
 
                 @endif
             @endif
-                
-                
+
+
 
             </div>
             <hr class="mt-2 mb-2">
-            
+
         @endforeach
 
-            
+
 
         </div>
         <div class="modal-footer ">
@@ -280,6 +280,12 @@
         </div>
 
     </section>
+
+    <style>
+        .following-button {
+            background-color: #808080; /* Gray color */
+        }
+    </style>
     <script>
         const modal_overlay = document.querySelector('#modal_overlay');
         const modal = document.querySelector('#modal');
@@ -304,7 +310,7 @@
                 setTimeout(() => overlayCl.add('hidden'), 300);
             }
         }
-
+        //search for the users
         document.getElementById('searchInput').addEventListener('input', function(event) {
             const query = event.target.value;
             axios.get('/search', {
@@ -337,16 +343,15 @@
                             </svg>
                             <span class="">Messages</span>
                         </a>
-                        <form>
-                            <button class="flex items-center px-2 text-xs text-white bg-primary">
-                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                                </svg>
-                                 <span class="py-1 text-xs text-white bg-primary">Follow</span>
-                            </button>
-                        </form>
-                    </div>
+
+                       <button class="flex items-center px-2 text-xs text-white bg-primary" onclick="follow(${user.id})">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                            </svg>
+                            <span id="followOrUnfollow" class="py-1 text-xs text-white bg-primary">Follow</span>
+                        </button>
                 </div>
+            </div>
             `;
                         searchResultsContainer.insertAdjacentHTML('beforeend', cardContent);
                     });
@@ -356,5 +361,35 @@
                 });
         });
 
+        //follow users
+        function follow(userId) {
+            axios.post('/follow/' + userId)
+                .then(response => {
+                    console.log(response.data);
+                    var buttonText = document.querySelector('#followOrUnfollow');
+                    if (response.data === "follow") {
+                        buttonText.textContent = "Following";
+                        buttonText.classList.add('following-button');
+                        Swal.fire({
+                            icon: "success",
+                            title: "Wohoo",
+                            footer: '<a href="#">You Started Following This User</a>'
+                        });
+                    } else if (response.data === "unfollow") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Oops...",
+                            footer: '<a href="#">You Are Already Follow</a>'
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        footer: '<a href="#" class="text-white">Already Following This User go to his profile to unfollow</a>'
+                    });
+                });
+        }
     </script>
 @endsection
