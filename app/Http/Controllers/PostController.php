@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
+use App\Models\User;
+use App\Models\Like;
 
 
 class PostController extends Controller
@@ -44,18 +47,23 @@ class PostController extends Controller
         }
 
         $post->save();
-    
+
         return redirect('/dashboard');
     }
 
 
 
 
+
+
+
     public function myPosts(Request $request)
     {
-        $user_id = auth()->id(); 
-        $posts = Post::where('user_id', $user_id)->get(); 
-        return view('dashboard', ['posts' => $posts]);
+        $user_id = auth()->id();
+        $posts = Post::where('user_id', $user_id)->get();
+        $comment= Comment::all();
+        return view('dashboard', compact('posts', 'comment'));
+
     }
 
     public function deletePost(Request $request, $id)
@@ -63,8 +71,30 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->delete();
         return redirect()->route('dashboard');
-        
+
     }
+
+
+    public function like(Request $request, $id){
+     $like = new Like;
+      $like->user_id = auth()->user()->id;
+     $like->post_id = $id;
+      $like->save();
+
+    return redirect()->route('index');
+}
+
+public function unlike($id){
+    $like = Like::where('user_id', auth()->user()->id)->where('post_id', $id)->first();
+    if($like){
+        $like->delete();
+    }
+    return redirect()->route('index');
+
+}
+
+
+
 
     /**
      * Show the form for creating a new resource.

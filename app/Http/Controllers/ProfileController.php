@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+
 class ProfileController extends Controller
 {
     /**
@@ -16,7 +17,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
+
         return view('profile.edit');
+
     }
 
     public function FollowUserDetailsPage($userId)

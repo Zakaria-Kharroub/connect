@@ -24,6 +24,7 @@ class FrontController extends Controller
         return view('hero', compact('users','posts','comments'));
 
 
+
     }
 
 
@@ -36,6 +37,8 @@ class FrontController extends Controller
         // Return the search results
         return response()->json($users);
     }
+
+
 
 
     public function message()

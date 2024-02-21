@@ -58,3 +58,10 @@ Route::delete('/deletePost/{id}', [App\Http\Controllers\PostController::class, '
 
 // comments
 Route::resource('comment', \App\Http\Controllers\CommentController::class);
+
+
+// likes
+
+Route::post('/like/{id}', [\App\Http\Controllers\PostController::class, 'like'])->name('like');
+Route::post('/unlike/{id}', [\App\Http\Controllers\PostController::class, 'unlike'])->name('unlike');
+

@@ -88,9 +88,6 @@
                                                 signaler <i class="fa-solid fa-flag text-lg "></i>
                                             </button>
 
-
-
-
                                         </div>
                                       </div>
                                 </div>
@@ -101,21 +98,49 @@
                             </div>
                             <!-- Image -->
                             <div class="mb-4">
-                                <img src="storage/images/{{$post->image}}"" alt="Post Image" class="w-full h-48 object-cover rounded-md">
+                                <img src="storage/images/{{$post->image}}" alt="Post Image" class="w-full h-48 object-cover rounded-md">
                             </div>
+
+
+
                             <!-- Like and Comment Section -->
                             <div class="flex items-center justify-between text-gray-500">
                                 <div class="flex items-center space-x-2">
-                                    <button class="flex justify-center items-center gap-2 px-2 hover:bg-gray-50 rounded-full p-1">
-                                        <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <path d="M12 21.35l-1.45-1.32C6.11 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-4.11 6.86-8.55 11.54L12 21.35z" />
-                                        </svg>
-                                        <span>42 Likes</span>
-                                    </button>
+
+
+                                <div class="flex justify-center items-center gap-2 px-2 hover:bg-gray-50 rounded-full p-1">
+                                    @if(auth()->check() && $post->isLikedByUser(auth()->user()))
+
+                                        <form action="{{route('unlike', $post->id)}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-light">
+                                                <i class="fa-solid fa-heart text-lg "></i>
+                                            </button>
+                                        </form>
+
+
+                                    @else
+                                        <form action="{{route('like',$post->id)}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-light">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+
+                                        <span>{{ $post->likes->count() }} Likes</span>
+
+                                    </div>
                                 </div>
+
+
+
+
+
                                 <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal{{$post->id}}">
-                                     Comment <i class="fa-solid fa-comment text-lg "></i>
+                                    <span> {{ $post->comments->count() }} Comments </span> <i class="fa-solid fa-comment text-lg "></i>
                                 </button>
+
 
                             </div>
                             <hr class="mt-2 mb-2">
