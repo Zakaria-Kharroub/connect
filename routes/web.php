@@ -26,7 +26,7 @@ Route::post('/loginUser', [\App\Http\Controllers\AuthController::class, 'loginUs
 Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logOut'])->name('logout');
 
 
-Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('IsAuth');
 
 
 
@@ -51,9 +51,9 @@ Route::get('/register', function () {
 
 
 // posts routes
-Route::get('/dashboard', [\App\Http\Controllers\PostController::class, 'myPosts'])->name('dashboard');
-Route::post('/addPost', [App\Http\Controllers\PostController::class, 'addPost'])->name('addPost');
-Route::delete('/deletePost/{id}', [App\Http\Controllers\PostController::class, 'deletePost'])->name('deletePost');
+Route::get('/dashboard', [\App\Http\Controllers\PostController::class, 'myPosts'])->name('dashboard')->middleware('IsAuth');
+Route::post('/addPost', [App\Http\Controllers\PostController::class, 'addPost'])->name('addPost')->middleware('IsAuth');
+Route::delete('/deletePost/{id}', [App\Http\Controllers\PostController::class, 'deletePost'])->name('deletePost')->middleware('IsAuth');
 
 // comments
 Route::resource('comment', \App\Http\Controllers\CommentController::class);
