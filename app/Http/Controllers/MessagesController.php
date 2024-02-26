@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateMessagesRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\MessagesRepo;
 
 class MessagesController extends Controller
 {
@@ -15,17 +16,17 @@ class MessagesController extends Controller
      * Display a listing of the resource.
      */
 
+    private $Messages;
+    public function __construct(MessagesRepo $Messages)
+    {
+        $this->Messages = $Messages;
+    }
 
     public function GetMessage($recipientId)
     {
-
-        $messages = Messages::where('sender_id', Auth::id())
-            ->where('recipient_id', $recipientId)
-            ->orWhere('sender_id', $recipientId)
-            ->where('recipient_id', Auth::id())
-            ->orderBy('created_at', 'asc')
-            ->get();
+        $messages = $this->Messages->recieveMessage($recipientId);
         $user = User::find($recipientId);
+
         return view('messages', compact('messages', 'user'));
     }
 

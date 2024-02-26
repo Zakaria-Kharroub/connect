@@ -47,7 +47,7 @@
                                 <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
                                     <div><span class="px-4 py-2 rounded-lg inline-block {{ $message->sender_id == Auth::id() ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600' }}">{{ $message->content }}</span></div>
                                 </div>
-                                <img src="{{ $message->sender_id == Auth::id() ? Auth::user()->profile_picture : $user->profile_picture }}" alt="{{ $message->sender_id == Auth::id() ? 'My profile' : 'Recipient profile' }}" class="w-6 h-6 rounded-full order-1">
+                                <img src="" alt="" class="w-6 h-6 rounded-full order-1">
                             </div>
                         </div>
                     @endforeach

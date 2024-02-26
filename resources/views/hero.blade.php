@@ -407,6 +407,15 @@
                             footer: '<a href="#">You Are Already Follow</a>'
                         });
                     }
+                    else
+                    {
+                        Swal.fire({
+                            icon: "error",
+                            title: "PLease Login In First",
+                            footer: '<a href="/login" class="text-white">Click Here To Login </a>'
+                        });
+                    }
+
                 })
                 .catch(error => {
                     Swal.fire({

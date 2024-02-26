@@ -15,7 +15,24 @@
     <title>Document</title>
 </head>
 <body>
-
+<style>
+    .dropdown-menu li {
+        position: relative;
+    }
+    .dropdown-menu .dropdown-submenu {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: -7px;
+    }
+    .dropdown-menu .dropdown-submenu-left {
+        right: 100%;
+        left: auto;
+    }
+    .dropdown-menu > li:hover > .dropdown-submenu {
+        display: block;
+    }
+</style>
     <header >
         <nav
             class="fixed inset-x-0 top-0 z-10 w-full px-4 py-1 bg-white shadow-md border-slate-500 dark:bg-[#0c1015] transition duration-700 ease-out"
@@ -38,6 +55,35 @@
                             <div id="dropdown-menu" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden">
                                 <div class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
                                     <a href="/profile/{{Auth::user()->id}}" class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">Profile</a>
+                                        <a class="dropdown-item" href="#">
+                                            Submenu &raquo;
+                                        </a>
+
+                                        <ul class="dropdown-menu dropdown-submenu">
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 1</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 2</a>
+                                            </li>
+                                            <li>    
+                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                                <ul class="dropdown-menu dropdown-submenu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 2</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 4</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 5</a>
+                                            </li>
+                                        </ul>
                                     <a href="#" class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">Notification</a>
                                     <a href="/dashboard" class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">Add Post</a>
                                     <form method="post" action="{{route('logout')}}">
@@ -93,6 +139,8 @@
 
             </div>
         </nav>
+
+
     </header>
 
     @yield('content')
