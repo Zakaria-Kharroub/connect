@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 use \App\Http\Controllers\MessagesController;
 use \App\Http\Controllers\AuthController;
+use App\Http\Controllers\FollowerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,10 +27,16 @@ Route::post('/loginUser', [\App\Http\Controllers\AuthController::class, 'loginUs
 Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logOut'])->name('logout');
 
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('IsAuth');
+
+// Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('IsAuth');
 
 
+Route::get('/profile/{id}', [ProfileController::class, 'FollowUserDetailsPage']);
 
+Route::post('/profile/{id}', [ProfileController::class, 'followOrUnfollowUser'])->name('followOrUnfollow');
+
+
+Route::get('/delete/{id}', [ProfileController::class, 'destroy'])->name('delete_profile');
 
 Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/search', [FrontController::class, 'find']);
@@ -37,7 +44,7 @@ Route::get('/search', [FrontController::class, 'find']);
 Route::get('/messages/{id}',[MessagesController::class, 'GetMessage'])->name('messages');
 Route::post('/message/{id}', [MessagesController::class, 'sendMessage'])->name('send.message');
 
-Route::get('/profile/{id}', [ProfileController::class, 'profileDetails']);
+Route::post('/follow/{id}', [FollowerController::class, 'FollowUser']);
 
 
 Route::get('/register', function () {

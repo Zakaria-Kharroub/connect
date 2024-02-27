@@ -22,7 +22,7 @@ class FrontController extends Controller
         $comments = Comment::all();
 
         return view('hero', compact('users','posts','comments'));
-        
+
 
 
     }
@@ -84,4 +84,6 @@ class FrontController extends Controller
     {
         //
     }
+
+
 }

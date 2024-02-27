@@ -11,7 +11,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -25,11 +25,10 @@
                     YouConnect
                 </a>
                 <div style="display: flex; gap: 2rem; align-items: center">
-    
+
                     @if(Auth::check())
-    
                         <div class="relative inline-block text-left">
-    
+
                             <button id="dropdown-button" class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
                                 {{ Auth::user()->name }}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -38,7 +37,7 @@
                             </button>
                             <div id="dropdown-menu" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden">
                                 <div class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
-                                    <a href="/profile" class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">Profile</a>
+                                    <a href="/profile/{{Auth::user()->id}}" class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">Profile</a>
                                     <a href="#" class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">Notification</a>
                                     <a href="/dashboard" class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">Add Post</a>
                                     <form method="post" action="{{route('logout')}}">
@@ -49,12 +48,12 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <script>
                             const dropdownButton = document.getElementById('dropdown-button');
                             const dropdownMenu = document.getElementById('dropdown-menu');
                             let isDropdownOpen = false;
-    
+
                             function toggleDropdown() {
                                 isDropdownOpen = !isDropdownOpen;
                                 if (isDropdownOpen) {
@@ -63,11 +62,11 @@
                                     dropdownMenu.classList.add('hidden');
                                 }
                             }
-    
+
                             toggleDropdown();
-    
+
                             dropdownButton.addEventListener('click', toggleDropdown);
-    
+
                             window.addEventListener('click', (event) => {
                                 if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
                                     dropdownMenu.classList.add('hidden');
@@ -75,7 +74,7 @@
                                 }
                             });
                         </script>
-    
+
                     @else
                         <div class="flex items-center space-x-4 text-lg font-semibold tracking-tight">
                             <a href="{{route('login')}}"
@@ -85,19 +84,20 @@
                                class="px-6 py-2 text-white transition duration-500 ease-out bg-blue-700 rounded-lg hover:bg-blue-800 hover:ease-in hover:underline"
                             >Sign up</a
                             >
-                            
+
                         </div>
                     @endif
                 </div>
-    
-    
-    
+
+
+
             </div>
         </nav>
     </header>
 
     @yield('content')
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" ></script>
 </body>
 </html>
