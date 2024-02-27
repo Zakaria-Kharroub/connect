@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Services\serviceInterFaces;
+
 use Illuminate\Http\Request;
 
-interface PostInterface
+interface ServicePostInterface
 {
-    public function addPostIntreFace(Request $request);
+    public function addPost(Request $request);
 }

@@ -6,5 +6,5 @@ use Illuminate\Http\Request;
 
 interface PostInterface
 {
-    public function addPostIntreFace(Request $request);
+    public function addPost(Request $request);
 }
