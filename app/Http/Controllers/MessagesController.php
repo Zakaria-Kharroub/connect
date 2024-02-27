@@ -8,7 +8,8 @@ use App\Http\Requests\UpdateMessagesRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\MessagesRepo;
+// use App\Repositories\MessagesRepo;
+use App\Repositories\InterFaces\MessagesInterFaces;
 
 class MessagesController extends Controller
 {
@@ -17,7 +18,7 @@ class MessagesController extends Controller
      */
 
     private $Messages;
-    public function __construct(MessagesRepo $Messages)
+    public function __construct(MessagesInterFaces $Messages)
     {
         $this->Messages = $Messages;
     }

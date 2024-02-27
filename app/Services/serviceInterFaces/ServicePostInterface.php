@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Repositories\Interfaces;
-
+namespace App\Services\serviceInterFaces;
 use Illuminate\Http\Request;
 
 interface PostInterface
