@@ -50,6 +50,14 @@ Route::middleware('IsAuth')->group(function (){
     Route::post('/unlike/{id}', [\App\Http\Controllers\PostController::class, 'unlike'])->name('unlike');
 });
 
+// Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('IsAuth');
+
+
+Route::get('/profile/{id}', [ProfileController::class, 'FollowUserDetailsPage']);
+
+Route::post('/profile/{id}', [ProfileController::class, 'followOrUnfollowUser'])->name('followOrUnfollow');
+>>>>>>> 4a30e442dd7ae31ac2957234614991e21da22eea
+
 
 
 Route::get('/', [FrontController::class, 'index'])->name('index');
@@ -66,5 +74,14 @@ Route::get('/search', [FrontController::class, 'find']);
 
 
 // posts routes
+<<<<<<< HEAD
+=======
+Route::get('/dashboard', [\App\Http\Controllers\PostController::class, 'myPosts'])->name('dashboard')->middleware('IsAuth');
+Route::post('/addPost', [App\Http\Controllers\PostController::class, 'addPost'])->name('addPost')->middleware('IsAuth');
+Route::delete('/deletePost/{id}', [App\Http\Controllers\PostController::class, 'deletePost'])->name('deletePost')->middleware('IsAuth');
+
+// comments
+Route::resource('comment', \App\Http\Controllers\CommentController::class);
+>>>>>>> 4a30e442dd7ae31ac2957234614991e21da22eea
 
 
