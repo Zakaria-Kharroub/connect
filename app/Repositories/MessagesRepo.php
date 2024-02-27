@@ -10,7 +10,7 @@ class MessagesRepo implements MessagesInterFaces
 {
     public function recieveMessage($recipientId)
     {
-        public $allMessages = Messages::where('sender_id', Auth::id())
+         $allMessages = Messages::where('sender_id', Auth::id())
             ->where('recipient_id', $recipientId)
             ->orWhere('sender_id', $recipientId)
             ->where('recipient_id', Auth::id())
