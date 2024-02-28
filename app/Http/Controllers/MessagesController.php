@@ -6,6 +6,7 @@ use App\Models\Messages;
 use App\Http\Requests\StoreMessagesRequest;
 use App\Http\Requests\UpdateMessagesRequest;
 use App\Models\User;
+use App\Services\MessagingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\MessagesRepo;
@@ -16,15 +17,15 @@ class MessagesController extends Controller
      * Display a listing of the resource.
      */
 
-    private $Messages;
-    public function __construct(MessagesRepo $Messages)
-    {
-        $this->Messages = $Messages;
+    protected $messageService;
+
+    public function __construct(MessagingService $messageService) {
+        $this->messageService = $messageService;
     }
 
     public function GetMessage($recipientId)
     {
-        $messages = $this->Messages->recieveMessage($recipientId);
+        $messages = $this->messageService->getMessagesByUser($recipientId);
         $user = User::find($recipientId);
 
         return view('messages', compact('messages', 'user'));

@@ -20,5 +20,4 @@ class MessagesRepo implements MessagesInterFaces
         return $allMessages;
     }
 
-
 }
