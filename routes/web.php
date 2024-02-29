@@ -59,6 +59,7 @@ Route::post('/profile/{id}', [ProfileController::class, 'followOrUnfollowUser'])
 
 
 
+
 Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/search', [FrontController::class, 'find']);
 
@@ -73,7 +74,6 @@ Route::get('/search', [FrontController::class, 'find']);
 
 
 // posts routes
-
 Route::get('/dashboard', [\App\Http\Controllers\PostController::class, 'myPosts'])->name('dashboard')->middleware('IsAuth');
 Route::post('/addPost', [App\Http\Controllers\PostController::class, 'addPost'])->name('addPost')->middleware('IsAuth');
 Route::delete('/deletePost/{id}', [App\Http\Controllers\PostController::class, 'deletePost'])->name('deletePost')->middleware('IsAuth');

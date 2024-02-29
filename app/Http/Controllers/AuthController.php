@@ -29,24 +29,22 @@ class AuthController extends Controller
 
 
 
+
+
     public function loginUser(Request $request)
     {
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $request->session()->put('id', Auth::user()->id);
             $request->session()->put('name', Auth::user()->name);
-
-           return redirect()->route('index');
+            return redirect()->route('index');
         } else {
             return redirect()->route('login');
         }
 
-
-
     }
-
-
 
 
     /**
@@ -60,17 +58,19 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+
+
+
     public function store(Request $request)
     {
-
-       $request->validate([
+        $request->validate([
             'name' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|unique:users',
             'address' => 'required',
             'password' => 'required',
         ]);
-
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -79,16 +79,19 @@ class AuthController extends Controller
 
         $user->password = $request->input('password');
         $user->save();
-
         return redirect()->route('login');
     }
 
 
+
     public function logOut(Request $request){
+
         Auth::logout();
         $request->session()->invalidate();
         return redirect()->route('index');
     }
+
+
     /**
      * Display the specified resource.
      */

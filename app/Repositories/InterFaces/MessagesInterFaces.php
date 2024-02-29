@@ -2,6 +2,7 @@
 
 namespace App\Repositories\InterFaces;
 
+
 interface MessagesInterFaces
 {
 

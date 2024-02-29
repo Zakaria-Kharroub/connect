@@ -9,7 +9,8 @@ use App\Models\User;
 use App\Services\MessagingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\MessagesRepo;
+// use App\Repositories\MessagesRepo;
+use App\Repositories\InterFaces\MessagesInterFaces;
 
 class MessagesController extends Controller
 {
@@ -19,8 +20,11 @@ class MessagesController extends Controller
 
     protected $messageService;
 
-    public function __construct(MessagingService $messageService) {
-        $this->messageService = $messageService;
+
+    private $Messages;
+    public function __construct(MessagesInterFaces $Messages)
+    {
+        $this->Messages = $Messages;
     }
 
     public function GetMessage($recipientId)
