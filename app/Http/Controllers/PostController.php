@@ -7,7 +7,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Like;
-use App\Services\serviceInterFaces\ServicePostInterface as ServiceInterFacesServicePostInterface;
+use App\Services\serviceInterFaces\ServicePostInterface;
 
 // use App\Services\Post\PostInterface;
 // use App\Services\serviceInterFaces\PostInterface ;
@@ -17,15 +17,13 @@ class PostController extends Controller
 
     protected $post;
 
-    public function __construct(ServiceInterFacesServicePostInterface $post)
+    public function __construct(ServicePostInterface $post)
     {
         $this->post = $post;
     }
 
     public function addPost(Request $request)
     {
-
-
         $this->post->addPost($request);
 
         return redirect('/dashboard');
@@ -41,36 +39,27 @@ class PostController extends Controller
     {
         $user_id = auth()->id();
         $posts = Post::where('user_id', $user_id)->get();
-        $comment= Comment::all();
+         $comment= Comment::all();
         return view('dashboard', compact('posts', 'comment'));
 
     }
 
-    public function deletePost(Request $request, $id)
+    public function deletePost($id)
     {
-        $post = Post::find($id);
-        $post->delete();
+       $this->post->deletePost($id);
         return redirect()->route('dashboard');
 
     }
 
 
-    public function like(Request $request, $id){
-     $like = new Like;
-      $like->user_id = auth()->user()->id;
-     $like->post_id = $id;
-      $like->save();
-
+    public function like($id){
+     $this->post->like($id);
     return redirect()->route('index');
 }
 
 public function unlike($id){
-    $like = Like::where('user_id', auth()->user()->id)->where('post_id', $id)->first();
-    if($like){
-        $like->delete();
-    }
+    $this->post->unlike($id);
     return redirect()->route('index');
-
 }
 
 

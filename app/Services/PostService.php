@@ -6,6 +6,7 @@ use App\Repositories\Interfaces\PostInterface;
 use Illuminate\Http\Request;
 use App\Services\serviceInterFaces\ServicePostInterface;
 
+
 class PostService implements ServicePostInterface
 {
     protected $post;
@@ -17,4 +18,19 @@ class PostService implements ServicePostInterface
     public function addPost(Request $request){
        return $this->post->addPost($request);
     }
+
+    public function deletePost($id){
+        return $this->post->deletePost($id);
+    }
+
+    public function like($id){
+        return $this->post->like($id);
+    }
+
+    public function unlike($id){
+        return $this->post->unlike($id);
+    }
+
+
+
 }

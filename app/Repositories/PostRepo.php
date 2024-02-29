@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Interfaces\PostInterface;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Like;
 
 class PostRepo implements PostInterface
 {
@@ -34,4 +35,29 @@ class PostRepo implements PostInterface
 
         $post->save();
     }
+
+
+
+
+    public function deletePost($id){
+        $post = Post::find($id);
+        $post->delete();
+    }
+
+
+
+
+    public function like($id){
+        $like = new Like;
+      $like->user_id = auth()->user()->id;
+     $like->post_id = $id;
+      $like->save();
+    }
+
+    public function unlike($id){
+        $like = Like::where('user_id', auth()->user()->id)->where('post_id', $id)->first();
+    if($like){
+        $like->delete();
+    }
+}
 }
