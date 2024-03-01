@@ -20,7 +20,7 @@ class PostRepo implements PostInterface
 
         $post = new Post();
         $post->content =$request->input('content');
-         $post->user_id= $request->input('user_id');
+        $post->user_id= $request->input('user_id');
         $post->date_creation = $request->input('date_creation');
 
 

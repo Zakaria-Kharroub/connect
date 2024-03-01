@@ -7,6 +7,7 @@ use App\Http\Requests\StoreMessagesRequest;
 use App\Http\Requests\UpdateMessagesRequest;
 use App\Models\User;
 use App\Services\MessagingService;
+use App\Services\serviceInterFaces\servicesInterFace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 // use App\Repositories\MessagesRepo;
@@ -22,9 +23,9 @@ class MessagesController extends Controller
 
 
     private $Messages;
-    public function __construct(MessagesInterFaces $Messages)
+    public function __construct(servicesInterFace $Messages)
     {
-        $this->Messages = $Messages;
+        $this->messageService = $Messages;
     }
 
     public function GetMessage($recipientId)
