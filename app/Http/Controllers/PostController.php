@@ -34,15 +34,15 @@ class PostController extends Controller
 
 
 
-
     public function myPosts(Request $request)
     {
-        $user_id = auth()->id();
+         $user_id= auth()->id();
         $posts = Post::where('user_id', $user_id)->get();
-         $comment= Comment::all();
-        return view('dashboard', compact('posts', 'comment'));
-
+         $comments =User::find($user_id)->comments;
+        return view('dashboard', compact('posts', 'comments'));
     }
+
+
 
     public function deletePost($id)
     {

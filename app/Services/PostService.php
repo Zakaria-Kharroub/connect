@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Repositories\Interfaces\PostInterface;
 use Illuminate\Http\Request;
 use App\Services\serviceInterFaces\ServicePostInterface;
+use App\Models\Post;
+use App\Models\User;
 
 
 class PostService implements ServicePostInterface
@@ -30,6 +32,10 @@ class PostService implements ServicePostInterface
     public function unlike($id){
         return $this->post->unlike($id);
     }
+
+
+
+
 
 
 

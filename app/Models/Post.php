@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Comment;
 use App\Models\Like;
-
+use Illuminate\Database\Eloquent\Concerns\HasEvents;
 
 class Post extends Model
 {
@@ -21,6 +21,7 @@ class Post extends Model
 
 
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -28,7 +29,7 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+       return $this->hasMany(Comment::class);
     }
 
     public function likes()
@@ -37,7 +38,8 @@ class Post extends Model
     }
 
     public function isLikedByUser(User $user)
-{
+    {
+
     return $this->likes()->where('user_id', $user->id)->exists();
-}
+    }
 }

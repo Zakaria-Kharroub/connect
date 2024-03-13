@@ -3,6 +3,8 @@
 namespace App\Services\serviceInterFaces;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\User;
 
 interface ServicePostInterface
 {
@@ -13,4 +15,6 @@ interface ServicePostInterface
     public function like($id);
 
     public function unlike($id);
+
+  
 }
